@@ -1,32 +1,21 @@
-//
-//  TryTodoAppApp.swift
-//  TryTodoApp
-//
-//  Created by Oleg Bask on 10/26/24.
-//
-
 import SwiftUI
 import SwiftData
 
 @main
 struct TryTodoAppApp: App {
     var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            Item.self,
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-
+        let schema = Schema([Item.self])
         do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
+            return try ModelContainer(for: schema)
         } catch {
             fatalError("Could not create ModelContainer: \(error)")
         }
     }()
-
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .modelContainer(sharedModelContainer) // Set modelContainer in environment
         }
-        .modelContainer(sharedModelContainer)
     }
 }

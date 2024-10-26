@@ -1,66 +1,170 @@
-//
-//  ContentView.swift
-//  TryTodoApp
-//
-//  Created by Oleg Bask on 10/26/24.
-//
-
 import SwiftUI
 import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
+    @State private var selectedCategory: TaskCategory = .today
+    @State private var editingItemID: UUID? = nil  // Track the currently edited item's ID
+    @State private var editingTitle: String = ""   // Temporary storage for editing
+    @State private var selectedItemID: UUID? = nil  // Track the currently selected item
+    @FocusState private var focusedItemID: UUID?   // Track focused item for editing
+    @State private var keyEventHandlingView: KeyEventHandlingNSView?
 
     var body: some View {
         NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
-                    }
-                }
-                .onDelete(perform: deleteItems)
+            // Sidebar with task categories
+            List(TaskCategory.allCases, id: \.self, selection: $selectedCategory) { category in
+                Label(category.rawValue, systemImage: category.iconName)
+                    .badge(count(for: category))
             }
-#if os(macOS)
-            .navigationSplitViewColumnWidth(min: 180, ideal: 200)
-#endif
-            .toolbar {
-#if os(iOS)
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-#endif
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
+            .navigationTitle("Categories")
+
         } detail: {
-            Text("Select an item")
-        }
-    }
+            VStack(alignment: .leading) {
+                // Header with selected category title
+                HStack {
+                    Image(systemName: "star.fill")
+                        .foregroundColor(.yellow)
+                    Text(selectedCategory.rawValue)
+                        .font(.title)
+                        .bold()
+                }
+                .padding(.bottom, 10)
 
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
-        }
-    }
+                ZStack {
+                    // Task list with inline editing
+                    List {
+                        ForEach(filteredItems) { item in
+                            HStack {
+                                Button(action: {
+                                    toggleTaskCompletion(for: item)
+                                }) {
+                                    Image(systemName: item.isCompleted ? "checkmark.circle.fill" : "circle")
+                                        .foregroundColor(item.isCompleted ? .green : .gray)
+                                }
 
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
+                                if editingItemID == item.id {
+                                    TextField("Task Title", text: $editingTitle)
+                                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                                        .focused($focusedItemID, equals: item.id)  // Bind focus state to item ID
+                                        .onSubmit {
+                                            saveChanges(for: item)
+                                        }
+                                        .onTapGesture {
+                                            startEditing(item: item)
+                                        }
+                                        .onExitCommand {
+                                            cancelEditing()
+                                        }
+                                        .onAppear {
+                                            focusedItemID = item.id  // Move focus to the TextField when editing starts
+                                        }
+                                } else {
+                                    Text(item.title)
+                                        .strikethrough(item.isCompleted)
+                                        .padding()
+                                        .background(selectedItemID == item.id ? Color.blue.opacity(0.2) : Color.clear)
+                                        .cornerRadius(8)
+                                        .onTapGesture {
+                                            selectedItemID = item.id
+                                        }
+                                }
+                            }
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                if editingItemID == nil {
+                                    selectedItemID = item.id
+                                }
+                            }
+                        }
+                    }
+                    
+                    // Capture KeyEventHandlingView reference and set the onKeyDown handler
+                    KeyEventHandlingView(onKeyDown: handleKeyDown)
+                        .frame(width: 0, height: 0)
+                        .background(
+                            Color.clear
+                                .onAppear { keyEventHandlingView = $0 as? KeyEventHandlingNSView }
+                        )
+                }
             }
+            .padding()
         }
     }
-}
 
-#Preview {
-    ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
+    private func startEditing(item: Item) {
+        editingItemID = item.id
+        editingTitle = item.title
+        focusedItemID = item.id  // Set focus to the item being edited
+    }
+
+    private func saveChanges(for item: Item) {
+        if let index = items.firstIndex(where: { $0.id == item.id }) {
+            items[index].title = editingTitle
+            try? modelContext.save()
+        }
+        editingItemID = nil
+        focusedItemID = nil  // Clear focus after saving
+
+        // Regain focus on keyEventHandlingView
+        keyEventHandlingView?.regainFocus()
+    }
+
+    private func cancelEditing() {
+        editingItemID = nil
+        editingTitle = ""
+        focusedItemID = nil  // Clear focus after cancelling
+    }
+
+    private func toggleTaskCompletion(for item: Item) {
+        if let index = items.firstIndex(where: { $0.id == item.id }) {
+            items[index].isCompleted.toggle()
+            try? modelContext.save()
+        }
+    }
+
+    private func handleKeyDown(_ event: NSEvent) {
+        guard let currentIndex = filteredItems.firstIndex(where: { $0.id == selectedItemID }) else { return }
+        
+        switch event.keyCode {
+        case 125: // Down Arrow Key
+            let nextIndex = (currentIndex + 1) % filteredItems.count
+            selectedItemID = filteredItems[nextIndex].id
+        case 126: // Up Arrow Key
+            let prevIndex = (currentIndex - 1 + filteredItems.count) % filteredItems.count
+            selectedItemID = filteredItems[prevIndex].id
+        case 36: // Enter Key
+            if let selectedItem = filteredItems.first(where: { $0.id == selectedItemID }) {
+                startEditing(item: selectedItem)
+            }
+        case 53: // Escape Key
+            cancelEditing()
+        default:
+            break
+        }
+    }
+
+    private var filteredItems: [Item] {
+        switch selectedCategory {
+        case .today:
+            return items.filter { Calendar.current.isDateInToday($0.timestamp) }
+        case .inbox:
+            return items.filter { $0.category == .inbox }
+        case .upcoming:
+            return items.filter { $0.timestamp > Date() && $0.category == .upcoming }
+        case .anytime:
+            return items.filter { $0.category == .anytime }
+        case .someday:
+            return items.filter { $0.category == .someday }
+        case .logbook:
+            return items.filter { $0.isCompleted && $0.category == .logbook }
+        case .trash:
+            return items.filter { $0.category == .trash }
+        }
+    }
+
+    private func count(for category: TaskCategory) -> Int {
+        return filteredItems.count
+    }
 }
