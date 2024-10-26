@@ -1,6 +1,6 @@
 import SwiftUI
+import SwiftData
 
-// View to Add a New Task
 struct AddTaskView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) var modelContext
@@ -8,28 +8,26 @@ struct AddTaskView: View {
     @State private var selectedCategory: TaskCategory = .inbox
 
     var body: some View {
-        NavigationView {
-            Form {
-                TextField("Task Title", text: $title)
-                
-                Picker("Category", selection: $selectedCategory) {
-                    ForEach(TaskCategory.allCases, id: \.self) { category in
-                        Text(category.rawValue).tag(category)
-                    }
+        Form {
+            TextField("Task Title", text: $title)
+            
+            Picker("Category", selection: $selectedCategory) {
+                ForEach(TaskCategory.allCases, id: \.self) { category in
+                    Text(category.rawValue).tag(category)
                 }
             }
-            .navigationTitle("Add New Task")
-            .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("Save") {
-                        addItem()
-                        dismiss()
-                    }
+        }
+        .navigationTitle("Add New Task")
+        .toolbar {
+            ToolbarItem(placement: .confirmationAction) {
+                Button("Save") {
+                    addItem()
+                    dismiss()
                 }
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") {
-                        dismiss()
-                    }
+            }
+            ToolbarItem(placement: .cancellationAction) {
+                Button("Cancel") {
+                    dismiss()
                 }
             }
         }

@@ -1,28 +1,25 @@
 import SwiftUI
 import SwiftData
+import AppKit
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
     @State private var selectedCategory: TaskCategory = .today
-    @State private var editingItemID: UUID? = nil  // Track the currently edited item's ID
-    @State private var editingTitle: String = ""   // Temporary storage for editing
-    @State private var selectedItemID: UUID? = nil  // Track the currently selected item
-    @FocusState private var focusedItemID: UUID?   // Track focused item for editing
-    @State private var keyEventHandlingView: KeyEventHandlingNSView?
+    @State private var editingItemID: UUID? = nil
+    @State private var editingTitle: String = ""
+    @State private var selectedItemID: UUID? = nil
+    @FocusState private var focusedItemID: UUID?
 
     var body: some View {
         NavigationSplitView {
-            // Sidebar with task categories
             List(TaskCategory.allCases, id: \.self, selection: $selectedCategory) { category in
                 Label(category.rawValue, systemImage: category.iconName)
                     .badge(count(for: category))
             }
             .navigationTitle("Categories")
-
         } detail: {
             VStack(alignment: .leading) {
-                // Header with selected category title
                 HStack {
                     Image(systemName: "star.fill")
                         .foregroundColor(.yellow)
@@ -32,71 +29,61 @@ struct ContentView: View {
                 }
                 .padding(.bottom, 10)
 
-                ZStack {
-                    // Task list with inline editing
-                    List {
-                        ForEach(filteredItems) { item in
-                            HStack {
-                                Button(action: {
-                                    toggleTaskCompletion(for: item)
-                                }) {
-                                    Image(systemName: item.isCompleted ? "checkmark.circle.fill" : "circle")
-                                        .foregroundColor(item.isCompleted ? .green : .gray)
-                                }
-
-                                if editingItemID == item.id {
-                                    TextField("Task Title", text: $editingTitle)
-                                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                                        .focused($focusedItemID, equals: item.id)  // Bind focus state to item ID
-                                        .onSubmit {
-                                            saveChanges(for: item)
-                                        }
-                                        .onTapGesture {
-                                            startEditing(item: item)
-                                        }
-                                        .onExitCommand {
-                                            cancelEditing()
-                                        }
-                                        .onAppear {
-                                            focusedItemID = item.id  // Move focus to the TextField when editing starts
-                                        }
-                                } else {
-                                    Text(item.title)
-                                        .strikethrough(item.isCompleted)
-                                        .padding()
-                                        .background(selectedItemID == item.id ? Color.blue.opacity(0.2) : Color.clear)
-                                        .cornerRadius(8)
-                                        .onTapGesture {
-                                            selectedItemID = item.id
-                                        }
-                                }
+                List {
+                    ForEach(filteredItems) { item in
+                        HStack {
+                            Button(action: {
+                                toggleTaskCompletion(for: item)
+                            }) {
+                                Image(systemName: item.isCompleted ? "checkmark.circle.fill" : "circle")
+                                    .foregroundColor(item.isCompleted ? .green : .gray)
                             }
-                            .contentShape(Rectangle())
-                            .onTapGesture {
-                                if editingItemID == nil {
-                                    selectedItemID = item.id
-                                }
+
+                            if editingItemID == item.id {
+                                TextField("Task Title", text: $editingTitle)
+                                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                                    .focused($focusedItemID, equals: item.id)
+                                    .onSubmit {
+                                        saveChanges(for: item)
+                                    }
+                                    .onExitCommand {
+                                        cancelEditing()
+                                    }
+                            } else {
+                                Text(item.title)
+                                    .strikethrough(item.isCompleted)
+                                    .padding()
+                                    .background(selectedItemID == item.id ? Color.blue.opacity(0.2) : Color.clear)
+                                    .cornerRadius(8)
+                                    .onTapGesture {
+                                        selectedItemID = item.id
+                                    }
+                            }
+                        }
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            if editingItemID == nil {
+                                selectedItemID = item.id
                             }
                         }
                     }
-                    
-                    // Capture KeyEventHandlingView reference and set the onKeyDown handler
-                    KeyEventHandlingView(onKeyDown: handleKeyDown)
-                        .frame(width: 0, height: 0)
-                        .background(
-                            Color.clear
-                                .onAppear { keyEventHandlingView = $0 as? KeyEventHandlingNSView }
-                        )
                 }
             }
             .padding()
+        }
+        .onAppear {
+            selectedItemID = filteredItems.first?.id
+            viewReference?.window?.makeFirstResponder(viewReference)
+        }
+        .onKeyDown { event in
+            handleKeyDown(event)
         }
     }
 
     private func startEditing(item: Item) {
         editingItemID = item.id
         editingTitle = item.title
-        focusedItemID = item.id  // Set focus to the item being edited
+        focusedItemID = item.id
     }
 
     private func saveChanges(for item: Item) {
@@ -105,16 +92,13 @@ struct ContentView: View {
             try? modelContext.save()
         }
         editingItemID = nil
-        focusedItemID = nil  // Clear focus after saving
-
-        // Regain focus on keyEventHandlingView
-        keyEventHandlingView?.regainFocus()
+        focusedItemID = nil
     }
 
     private func cancelEditing() {
         editingItemID = nil
         editingTitle = ""
-        focusedItemID = nil  // Clear focus after cancelling
+        focusedItemID = nil
     }
 
     private func toggleTaskCompletion(for item: Item) {
@@ -128,17 +112,17 @@ struct ContentView: View {
         guard let currentIndex = filteredItems.firstIndex(where: { $0.id == selectedItemID }) else { return }
         
         switch event.keyCode {
-        case 125: // Down Arrow Key
+        case 125: // Down arrow key
             let nextIndex = (currentIndex + 1) % filteredItems.count
             selectedItemID = filteredItems[nextIndex].id
-        case 126: // Up Arrow Key
+        case 126: // Up arrow key
             let prevIndex = (currentIndex - 1 + filteredItems.count) % filteredItems.count
             selectedItemID = filteredItems[prevIndex].id
-        case 36: // Enter Key
+        case 36: // Return key
             if let selectedItem = filteredItems.first(where: { $0.id == selectedItemID }) {
                 startEditing(item: selectedItem)
             }
-        case 53: // Escape Key
+        case 53: // Escape key
             cancelEditing()
         default:
             break
@@ -165,6 +149,6 @@ struct ContentView: View {
     }
 
     private func count(for category: TaskCategory) -> Int {
-        return filteredItems.count
+        filteredItems.count
     }
 }
