@@ -28,55 +28,100 @@ struct ContentView: View {
                         .bold()
                 }
                 .padding(.bottom, 10)
+                    List {
+                        ForEach(filteredItems) { item in
+                            HStack {
+                                Button(action: {
+                                    toggleTaskCompletion(for: item)
+                                }) {
+                                    Image(systemName: item.isCompleted ? "checkmark.circle.fill" : "circle")
+                                        .foregroundColor(item.isCompleted ? .green : .gray)
+                                }
 
-                List {
-                    ForEach(filteredItems) { item in
-                        HStack {
-                            Button(action: {
-                                toggleTaskCompletion(for: item)
-                            }) {
-                                Image(systemName: item.isCompleted ? "checkmark.circle.fill" : "circle")
-                                    .foregroundColor(item.isCompleted ? .green : .gray)
+                                if editingItemID == item.id {
+                                    TextField("Task Title", text: $editingTitle)
+                                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                                        .focused($focusedItemID, equals: item.id)
+                                        .onSubmit {
+                                            saveChanges(for: item)
+                                        }
+                                        .onTapGesture {
+                                            startEditing(item: item)
+                                        }
+                                        .onExitCommand {
+                                            cancelEditing()
+                                        }
+                                        .onAppear {
+                                            focusedItemID = item.id
+                                        }
+                                } else {
+                                    Text(item.title)
+                                        .strikethrough(item.isCompleted)
+                                        .padding()
+                                        .background(selectedItemID == item.id ? Color.blue.opacity(0.2) : Color.clear)
+                                        .cornerRadius(8)
+                                        .onTapGesture {
+                                            selectedItemID = item.id
+                                        }
+                                }
                             }
-
-                            if editingItemID == item.id {
-                                TextField("Task Title", text: $editingTitle)
-                                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                                    .focused($focusedItemID, equals: item.id)
-                                    .onSubmit {
-                                        saveChanges(for: item)
-                                    }
-                                    .onExitCommand {
-                                        cancelEditing()
-                                    }
-                            } else {
-                                Text(item.title)
-                                    .strikethrough(item.isCompleted)
-                                    .padding()
-                                    .background(selectedItemID == item.id ? Color.blue.opacity(0.2) : Color.clear)
-                                    .cornerRadius(8)
-                                    .onTapGesture {
-                                        selectedItemID = item.id
-                                    }
-                            }
-                        }
-                        .contentShape(Rectangle())
-                        .onTapGesture {
-                            if editingItemID == nil {
-                                selectedItemID = item.id
-                            }
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                if editingItemID == nil {
+                                    selectedItemID = item.id
+                                }
                         }
                     }
                 }
             }
             .padding()
+            .onAppear {
+                setupKeyboardHandlers()
+            }
+            .navigationTitle("Tasks")
+            .toolbar {
+                ToolbarItem(placement: .primaryAction) {
+                    Button(action: addItem) {
+                        Label("Add Item", systemImage: "plus")
+                    }
+                }
+            }
         }
-        .onAppear {
-            selectedItemID = filteredItems.first?.id
-            viewReference?.window?.makeFirstResponder(viewReference)
+    }
+
+    // MARK: - Helper Functions
+
+    private func addItem() {
+        let newItem = Item(title: "New Task", timestamp: Date(), isCompleted: false, category: selectedCategory)
+        modelContext.insert(newItem)  // Insert the new item into the model context
+        try? modelContext.save()       // Save changes to persist the new item
+    }
+    
+    private func setupKeyboardHandlers() {
+        NSEvent.addLocalMonitorForEvents(matching: .keyDown) { event in
+            handleKeyPress(event)
+            return event
         }
-        .onKeyDown { event in
-            handleKeyDown(event)
+    }
+
+    private func handleKeyPress(_ event: NSEvent) {
+        guard let currentIndex = filteredItems.firstIndex(where: { $0.id == selectedItemID }) else { return }
+        
+        switch event.keyCode {
+        case 125: // Down Arrow Key
+            let nextIndex = (currentIndex + 1) % filteredItems.count
+            selectedItemID = filteredItems[nextIndex].id
+        case 126: // Up Arrow Key
+            let prevIndex = (currentIndex - 1 + filteredItems.count) % filteredItems.count
+            selectedItemID = filteredItems[prevIndex].id
+        case 36: // Enter Key
+            if let selectedItem = filteredItems.first(where: { $0.id == selectedItemID }) {
+                startEditing(item: selectedItem)
+            }
+        case 53: // Escape Key
+            cancelEditing()
+        default:
+            break
         }
     }
 
@@ -108,27 +153,6 @@ struct ContentView: View {
         }
     }
 
-    private func handleKeyDown(_ event: NSEvent) {
-        guard let currentIndex = filteredItems.firstIndex(where: { $0.id == selectedItemID }) else { return }
-        
-        switch event.keyCode {
-        case 125: // Down arrow key
-            let nextIndex = (currentIndex + 1) % filteredItems.count
-            selectedItemID = filteredItems[nextIndex].id
-        case 126: // Up arrow key
-            let prevIndex = (currentIndex - 1 + filteredItems.count) % filteredItems.count
-            selectedItemID = filteredItems[prevIndex].id
-        case 36: // Return key
-            if let selectedItem = filteredItems.first(where: { $0.id == selectedItemID }) {
-                startEditing(item: selectedItem)
-            }
-        case 53: // Escape key
-            cancelEditing()
-        default:
-            break
-        }
-    }
-
     private var filteredItems: [Item] {
         switch selectedCategory {
         case .today:
@@ -149,6 +173,6 @@ struct ContentView: View {
     }
 
     private func count(for category: TaskCategory) -> Int {
-        filteredItems.count
+        return filteredItems.count
     }
 }
