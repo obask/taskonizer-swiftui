@@ -1,82 +1,123 @@
 import SwiftUI
 import SwiftData
+import AppKit
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
-    @Query private var projects: [Project]  // Fetch available projects
-    @State private var selectedCategory: TaskCategory = .inbox
-    @State private var selectedItemID: UUID?
-    @State private var singleSelection: UUID?
-
-    var body: some View {
-        NavigationSplitView {
-            // Sidebar with task categories
-            List(TaskCategory.allCases, id: \.self, selection: $selectedCategory) { category in
-                Label(category.rawValue, systemImage: category.iconName)
-            }
-            .navigationTitle("Categories")
-        } detail: {
-            // Middle pane with list of todos grouped by project
-            List(selection: $selectedItemID) {
-                // Section for items without a project
-                if !itemsWithoutProject.isEmpty {
-                    Section(header: Text("No Project")) {
-                        ForEach(itemsWithoutProject) { item in
-                            Text(item.title)
-                                .strikethrough(item.isCompleted)
+        @Query private var items: [Item]
+        @Query private var projects: [Project]
+        @State private var selectedItemID: UUID?
+        @State private var editingItemID: UUID?  // Track the item being edited
+        @State private var editedTitle: String = ""  // Temporary storage for editing
+        
+        var body: some View {
+                List(selection: $selectedItemID) {
+                    if !itemsWithoutProject.isEmpty {
+                        Section(header: Text("No Project")) {
+                            ForEach(itemsWithoutProject) { item in
+                                TaskRow(
+                                    item: item,
+                                    isEditing: editingItemID == item.id,
+                                    editedTitle: $editedTitle,
+                                    editingItemID: $editingItemID
+                                )
                                 .tag(item.id)
+                            }
+                        }
+                    }
+
+                    ForEach(projects) { project in
+                        let projectItems = itemsForProject(project)
+                        if !projectItems.isEmpty {
+                            Section(header: Text(project.name)) {
+                                ForEach(projectItems) { item in
+                                    TaskRow(
+                                        item: item,
+                                        isEditing: editingItemID == item.id,
+                                        editedTitle: $editedTitle,
+                                        editingItemID: $editingItemID
+                                    )
+                                    .tag(item.id)
+                                }
+                            }
+                        }
+                    }
+                .navigationTitle("Tasks")
+                .toolbar {
+                    ToolbarItem(placement: .primaryAction) {
+                        Button(action: addItem) {
+                            Label("Add Task", systemImage: "plus")
                         }
                     }
                 }
-
-                // Sections for items grouped by project
-                ForEach(projects) { project in
-                    Section(header: Text(project.name)) {
-                        ForEach(itemsForProject(project)) { item in
-                            Text(item.title)
-                                .strikethrough(item.isCompleted)
-                                .tag(item.id)
-                        }
-                    }
+                .onAppear {
+                    setupKeyboardHandlers()
                 }
-            }
-            .navigationTitle("Tasks")
-            .toolbar {
-                ToolbarItem(placement: .primaryAction) {
-                    Button(action: addItem) {
-                        Label("Add Task", systemImage: "plus")
+                .onChange(of: selectedItemID) {
+                    if editingItemID != nil {
+                        saveChanges()
                     }
                 }
             }
         }
-        .onAppear {
-            // Initialize the selected item when the view appears
-            selectedItemID = filteredItems.first?.id
+    
+    // MARK: - Keyboard Handlers
+
+    private func setupKeyboardHandlers() {
+        NSEvent.addLocalMonitorForEvents(matching: .keyDown) { event in
+            handleKeyPress(event)
+            return event
         }
     }
 
+    private func handleKeyPress(_ event: NSEvent) {
+        if event.keyCode == 36 {  // Enter key keyCode
+            if let selectedItemID = selectedItemID {
+                startEditing(itemID: selectedItemID)
+            }
+        }
+    }
+    
     // MARK: - Helper Functions
 
+    private func startEditing(item: Item) {
+        if editingItemID == item.id {
+            // Already editing this item, so do not override editedTitle
+            return
+        }
+        editingItemID = item.id
+        editedTitle = item.title
+    }
+
+    private func startEditing(itemID: UUID) {
+        if let item = items.first(where: { $0.id == itemID }) {
+            startEditing(item: item)
+        }
+    }
+
+    private func saveChanges() {
+        if let editingItemID = editingItemID, let itemIndex = items.firstIndex(where: { $0.id == editingItemID }) {
+            items[itemIndex].title = editedTitle
+            try? modelContext.save()
+        }
+        editingItemID = nil
+        editedTitle = ""
+    }
+
     private func addItem() {
-        let newItem = Item(title: "New Task", timestamp: Date(), isCompleted: false, category: selectedCategory)
+        let newItem = Item(title: "New Task", timestamp: Date(), isCompleted: false, project: nil)
         modelContext.insert(newItem)
         try? modelContext.save()
-        
-        // Update the selection to the new item
         selectedItemID = newItem.id
     }
 
-    // Filtered items based on selected category and project status
     private var itemsWithoutProject: [Item] {
-        items.filter { $0.category == selectedCategory && $0.project == nil }
+        items.filter { $0.project == nil }
     }
 
     private func itemsForProject(_ project: Project) -> [Item] {
-        items.filter { $0.category == selectedCategory && $0.project?.id == project.id }
-    }
-
-    private var filteredItems: [Item] {
-        items.filter { $0.category == selectedCategory }
+        items.filter { $0.project?.id == project.id }
     }
 }
+
+
