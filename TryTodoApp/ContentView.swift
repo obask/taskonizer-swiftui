@@ -4,63 +4,76 @@ import AppKit
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
-        @Query private var items: [Item]
-        @Query private var projects: [Project]
-        @State private var selectedItemID: UUID?
-        @State private var editingItemID: UUID?  // Track the item being edited
-        @State private var editedTitle: String = ""  // Temporary storage for editing
-        
-        var body: some View {
-                List(selection: $selectedItemID) {
-                    if !itemsWithoutProject.isEmpty {
-                        Section(header: Text("No Project")) {
-                            ForEach(itemsWithoutProject) { item in
+    @Query private var items: [Item]
+    @Query private var projects: [Project]
+    @State private var selectedItemID: UUID?
+    @State private var editingItemID: UUID?  // Track the item being edited
+    @State private var editedTitle: String = ""  // Temporary storage for editing
+    @State private var expandedTaskID: UUID?  // Track which task is expanded for Things 3-like behavior
+
+    var body: some View {
+            List(selection: $selectedItemID) {
+                // Section for items without a project
+                if !itemsWithoutProject.isEmpty {
+                    Section(header: Text("No Project")) {
+                        ForEach(itemsWithoutProject) { item in
+                            TaskRow(
+                                item: item,
+                                isExpanded: Binding(
+                                    get: { expandedTaskID == item.id },
+                                    set: { isExpanded in
+                                        expandedTaskID = isExpanded ? item.id : nil
+                                    }
+                                ),
+                                editedTitle: $editedTitle,
+                                editingItemID: $editingItemID
+                            )
+                            .tag(item.id)
+                        }
+                    }
+                }
+
+                // Sections for items grouped by project
+                ForEach(projects) { project in
+                    let projectItems = itemsForProject(project)
+                    if !projectItems.isEmpty {
+                        Section(header: Text(project.name)) {
+                            ForEach(projectItems) { item in
                                 TaskRow(
                                     item: item,
-                                    isEditing: editingItemID == item.id,
+                                    isExpanded: Binding(
+                                        get: { expandedTaskID == item.id },
+                                        set: { isExpanded in
+                                            expandedTaskID = isExpanded ? item.id : nil
+                                        }
+                                    ),
                                     editedTitle: $editedTitle,
                                     editingItemID: $editingItemID
                                 )
                                 .tag(item.id)
                             }
                         }
-                    }
-
-                    ForEach(projects) { project in
-                        let projectItems = itemsForProject(project)
-                        if !projectItems.isEmpty {
-                            Section(header: Text(project.name)) {
-                                ForEach(projectItems) { item in
-                                    TaskRow(
-                                        item: item,
-                                        isEditing: editingItemID == item.id,
-                                        editedTitle: $editedTitle,
-                                        editingItemID: $editingItemID
-                                    )
-                                    .tag(item.id)
-                                }
-                            }
-                        }
-                    }
-                .navigationTitle("Tasks")
-                .toolbar {
-                    ToolbarItem(placement: .primaryAction) {
-                        Button(action: addItem) {
-                            Label("Add Task", systemImage: "plus")
-                        }
-                    }
                 }
-                .onAppear {
-                    setupKeyboardHandlers()
-                }
-                .onChange(of: selectedItemID) {
-                    if editingItemID != nil {
-                        saveChanges()
+            }
+            .navigationTitle("Tasks")
+            .toolbar {
+                ToolbarItem(placement: .primaryAction) {
+                    Button(action: addItem) {
+                        Label("Add Task", systemImage: "plus")
                     }
                 }
             }
+            .onAppear {
+                setupKeyboardHandlers()
+            }
+            .onChange(of: selectedItemID) {
+                if editingItemID != nil {
+                    saveChanges()
+                }
+            }
         }
-    
+    }
+
     // MARK: - Keyboard Handlers
 
     private func setupKeyboardHandlers() {
@@ -77,7 +90,7 @@ struct ContentView: View {
             }
         }
     }
-    
+
     // MARK: - Helper Functions
 
     private func startEditing(item: Item) {
@@ -119,5 +132,3 @@ struct ContentView: View {
         items.filter { $0.project?.id == project.id }
     }
 }
-
-

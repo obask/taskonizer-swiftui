@@ -5,9 +5,10 @@ import AppKit
 struct TaskRow: View {
     @Environment(\.modelContext) private var modelContext
     @Bindable var item: Item
-    var isEditing: Bool
+    @Binding var isExpanded: Bool  // Track if the task is expanded
     @Binding var editedTitle: String
     @Binding var editingItemID: UUID?  // Binding to reset editingItemID after commit
+    @Namespace private var animationNamespace  // Namespace for matched geometry effect
     @FocusState private var titleFieldIsFocused: Bool
 
     // Custom light gray background color to mimic systemGray6 on macOS
@@ -20,49 +21,68 @@ struct TaskRow: View {
     }
 
     var body: some View {
-        HStack(alignment: .top) {
-            Button(action: toggleCompletion) {
-                Image(systemName: item.isCompleted ? "checkmark.square" : "square")
-                    .foregroundColor(item.isCompleted ? .green : .gray)
-                    .imageScale(.large)
-            }
+        VStack(alignment: .leading, spacing: 8) {
+            HStack(alignment: .top) {
+                Button(action: toggleCompletion) {
+                    Image(systemName: item.isCompleted ? "checkmark.square" : "square")
+                        .foregroundColor(item.isCompleted ? .green : .gray)
+                        .imageScale(.large)
+                }
 
-            VStack(alignment: .leading) {
-                if isEditing {
-                    TextField("Edit Task", text: $editedTitle, onCommit: saveChanges)
-                        .textFieldStyle(PlainTextFieldStyle())  // Plain style for better integration with background
-                        .padding(8)
-                        .background(RoundedRectangle(cornerRadius: 8).fill(editingBackgroundColor))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 8)
-                                .stroke(Color.gray.opacity(0.3), lineWidth: 1)
-                        )
-                        .focused($titleFieldIsFocused)
-                        .onAppear {
-                            titleFieldIsFocused = true
-                            moveCursorToEnd()
-                        }
-                } else {
-                    Text(item.title)
-                        .strikethrough(item.isCompleted)
-                        .padding(.vertical, 4)
-                        .font(.body)
+                VStack(alignment: .leading) {
+                    if isExpanded {
+                        TextField("Edit Task", text: $editedTitle, onCommit: saveChanges)
+                            .textFieldStyle(PlainTextFieldStyle())  // Plain style for better integration with background
+                            .padding(8)
+                            .background(RoundedRectangle(cornerRadius: 8).fill(editingBackgroundColor))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                            )
+                            .focused($titleFieldIsFocused)
+                            .onAppear {
+                                titleFieldIsFocused = true
+                                moveCursorToEnd()
+                            }
+                            .matchedGeometryEffect(id: "title\(item.id)", in: animationNamespace)
+                    } else {
+                        Text(item.title)
+                            .strikethrough(item.isCompleted)
+                            .padding(.vertical, 4)
+                            .font(.body)
+                            .matchedGeometryEffect(id: "title\(item.id)", in: animationNamespace)
+                    }
+                }
+                .padding(.leading, 5)
+
+                Spacer()
+
+                if isExpanded {
+                    Image(systemName: "square.and.pencil")
+                        .foregroundColor(.blue)
+                        .matchedGeometryEffect(id: "editIcon\(item.id)", in: animationNamespace)
                 }
             }
-            .padding(.leading, 5)
 
-            Spacer()
-
-            if isEditing {
-                Image(systemName: "square.and.pencil")
-                    .foregroundColor(.blue)
+            if isExpanded {
+                Text("Additional Details")
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+                    .padding(.top, 8)
+                    .transition(.opacity)
+                    .matchedGeometryEffect(id: "details\(item.id)", in: animationNamespace)
             }
         }
         .padding(8)
-        .background(isEditing ? editingBackgroundColor : Color.clear)
+        .background(isExpanded ? editingBackgroundColor : Color.clear)  // Use custom background only in expanded mode
         .cornerRadius(10)
-        .shadow(color: isEditing ? Color.black.opacity(0.1) : Color.clear, radius: 4, x: 0, y: 2)
-        .contentShape(Rectangle()) // Makes the whole row tappable
+        .shadow(color: isExpanded ? Color.black.opacity(0.1) : Color.clear, radius: 4, x: 0, y: 2)
+        .contentShape(Rectangle())
+        .onTapGesture(count: 2) {
+            withAnimation(.spring()) {
+                isExpanded.toggle()
+            }
+        }
     }
 
     private func toggleCompletion() {
