@@ -1,13 +1,13 @@
 //
-//  TryTodoAppUITests.swift
-//  TryTodoAppUITests
+//  taskonizerUITests.swift
+//  taskonizerUITests
 //
-//  Created by Oleg Bask on 10/26/24.
+//  Created by Oleg B on 03/11/2024.
 //
 
 import XCTest
 
-final class TryTodoAppUITests: XCTestCase {
+final class taskonizerUITests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.

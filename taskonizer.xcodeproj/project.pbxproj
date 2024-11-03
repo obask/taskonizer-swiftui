@@ -7,62 +7,62 @@
 	objects = {
 
 /* Begin PBXContainerItemProxy section */
-		7C50582A2CCD42BA0016F84B /* PBXContainerItemProxy */ = {
+		7C4E84182CD7BAC30049F373 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 7C50580E2CCD42B90016F84B /* Project object */;
+			containerPortal = 7C4E83FC2CD7BAC20049F373 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 7C5058152CCD42B90016F84B;
-			remoteInfo = TryTodoApp;
+			remoteGlobalIDString = 7C4E84032CD7BAC20049F373;
+			remoteInfo = taskonizer;
 		};
-		7C5058342CCD42BA0016F84B /* PBXContainerItemProxy */ = {
+		7C4E84222CD7BAC30049F373 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 7C50580E2CCD42B90016F84B /* Project object */;
+			containerPortal = 7C4E83FC2CD7BAC20049F373 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 7C5058152CCD42B90016F84B;
-			remoteInfo = TryTodoApp;
+			remoteGlobalIDString = 7C4E84032CD7BAC20049F373;
+			remoteInfo = taskonizer;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		7C5058162CCD42B90016F84B /* TryTodoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TryTodoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		7C5058292CCD42BA0016F84B /* TryTodoAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TryTodoAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		7C5058332CCD42BA0016F84B /* TryTodoAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TryTodoAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7C4E84042CD7BAC20049F373 /* taskonizer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = taskonizer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7C4E84172CD7BAC30049F373 /* taskonizerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = taskonizerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7C4E84212CD7BAC30049F373 /* taskonizerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = taskonizerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		7C5058182CCD42B90016F84B /* TryTodoApp */ = {
+		7C4E84062CD7BAC20049F373 /* taskonizer */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = TryTodoApp;
+			path = taskonizer;
 			sourceTree = "<group>";
 		};
-		7C50582C2CCD42BA0016F84B /* TryTodoAppTests */ = {
+		7C4E841A2CD7BAC30049F373 /* taskonizerTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = TryTodoAppTests;
+			path = taskonizerTests;
 			sourceTree = "<group>";
 		};
-		7C5058362CCD42BA0016F84B /* TryTodoAppUITests */ = {
+		7C4E84242CD7BAC30049F373 /* taskonizerUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = TryTodoAppUITests;
+			path = taskonizerUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		7C5058132CCD42B90016F84B /* Frameworks */ = {
+		7C4E84012CD7BAC20049F373 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7C5058262CCD42BA0016F84B /* Frameworks */ = {
+		7C4E84142CD7BAC30049F373 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7C5058302CCD42BA0016F84B /* Frameworks */ = {
+		7C4E841E2CD7BAC30049F373 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -72,22 +72,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		7C50580D2CCD42B90016F84B = {
+		7C4E83FB2CD7BAC20049F373 = {
 			isa = PBXGroup;
 			children = (
-				7C5058182CCD42B90016F84B /* TryTodoApp */,
-				7C50582C2CCD42BA0016F84B /* TryTodoAppTests */,
-				7C5058362CCD42BA0016F84B /* TryTodoAppUITests */,
-				7C5058172CCD42B90016F84B /* Products */,
+				7C4E84062CD7BAC20049F373 /* taskonizer */,
+				7C4E841A2CD7BAC30049F373 /* taskonizerTests */,
+				7C4E84242CD7BAC30049F373 /* taskonizerUITests */,
+				7C4E84052CD7BAC20049F373 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		7C5058172CCD42B90016F84B /* Products */ = {
+		7C4E84052CD7BAC20049F373 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7C5058162CCD42B90016F84B /* TryTodoApp.app */,
-				7C5058292CCD42BA0016F84B /* TryTodoAppTests.xctest */,
-				7C5058332CCD42BA0016F84B /* TryTodoAppUITests.xctest */,
+				7C4E84042CD7BAC20049F373 /* taskonizer.app */,
+				7C4E84172CD7BAC30049F373 /* taskonizerTests.xctest */,
+				7C4E84212CD7BAC30049F373 /* taskonizerUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -95,134 +95,134 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		7C5058152CCD42B90016F84B /* TryTodoApp */ = {
+		7C4E84032CD7BAC20049F373 /* taskonizer */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7C50583D2CCD42BA0016F84B /* Build configuration list for PBXNativeTarget "TryTodoApp" */;
+			buildConfigurationList = 7C4E842B2CD7BAC30049F373 /* Build configuration list for PBXNativeTarget "taskonizer" */;
 			buildPhases = (
-				7C5058122CCD42B90016F84B /* Sources */,
-				7C5058132CCD42B90016F84B /* Frameworks */,
-				7C5058142CCD42B90016F84B /* Resources */,
+				7C4E84002CD7BAC20049F373 /* Sources */,
+				7C4E84012CD7BAC20049F373 /* Frameworks */,
+				7C4E84022CD7BAC20049F373 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				7C5058182CCD42B90016F84B /* TryTodoApp */,
+				7C4E84062CD7BAC20049F373 /* taskonizer */,
 			);
-			name = TryTodoApp;
+			name = taskonizer;
 			packageProductDependencies = (
 			);
-			productName = TryTodoApp;
-			productReference = 7C5058162CCD42B90016F84B /* TryTodoApp.app */;
+			productName = taskonizer;
+			productReference = 7C4E84042CD7BAC20049F373 /* taskonizer.app */;
 			productType = "com.apple.product-type.application";
 		};
-		7C5058282CCD42BA0016F84B /* TryTodoAppTests */ = {
+		7C4E84162CD7BAC30049F373 /* taskonizerTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7C5058402CCD42BA0016F84B /* Build configuration list for PBXNativeTarget "TryTodoAppTests" */;
+			buildConfigurationList = 7C4E842E2CD7BAC30049F373 /* Build configuration list for PBXNativeTarget "taskonizerTests" */;
 			buildPhases = (
-				7C5058252CCD42BA0016F84B /* Sources */,
-				7C5058262CCD42BA0016F84B /* Frameworks */,
-				7C5058272CCD42BA0016F84B /* Resources */,
+				7C4E84132CD7BAC30049F373 /* Sources */,
+				7C4E84142CD7BAC30049F373 /* Frameworks */,
+				7C4E84152CD7BAC30049F373 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				7C50582B2CCD42BA0016F84B /* PBXTargetDependency */,
+				7C4E84192CD7BAC30049F373 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				7C50582C2CCD42BA0016F84B /* TryTodoAppTests */,
+				7C4E841A2CD7BAC30049F373 /* taskonizerTests */,
 			);
-			name = TryTodoAppTests;
+			name = taskonizerTests;
 			packageProductDependencies = (
 			);
-			productName = TryTodoAppTests;
-			productReference = 7C5058292CCD42BA0016F84B /* TryTodoAppTests.xctest */;
+			productName = taskonizerTests;
+			productReference = 7C4E84172CD7BAC30049F373 /* taskonizerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		7C5058322CCD42BA0016F84B /* TryTodoAppUITests */ = {
+		7C4E84202CD7BAC30049F373 /* taskonizerUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7C5058432CCD42BA0016F84B /* Build configuration list for PBXNativeTarget "TryTodoAppUITests" */;
+			buildConfigurationList = 7C4E84312CD7BAC30049F373 /* Build configuration list for PBXNativeTarget "taskonizerUITests" */;
 			buildPhases = (
-				7C50582F2CCD42BA0016F84B /* Sources */,
-				7C5058302CCD42BA0016F84B /* Frameworks */,
-				7C5058312CCD42BA0016F84B /* Resources */,
+				7C4E841D2CD7BAC30049F373 /* Sources */,
+				7C4E841E2CD7BAC30049F373 /* Frameworks */,
+				7C4E841F2CD7BAC30049F373 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				7C5058352CCD42BA0016F84B /* PBXTargetDependency */,
+				7C4E84232CD7BAC30049F373 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				7C5058362CCD42BA0016F84B /* TryTodoAppUITests */,
+				7C4E84242CD7BAC30049F373 /* taskonizerUITests */,
 			);
-			name = TryTodoAppUITests;
+			name = taskonizerUITests;
 			packageProductDependencies = (
 			);
-			productName = TryTodoAppUITests;
-			productReference = 7C5058332CCD42BA0016F84B /* TryTodoAppUITests.xctest */;
+			productName = taskonizerUITests;
+			productReference = 7C4E84212CD7BAC30049F373 /* taskonizerUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		7C50580E2CCD42B90016F84B /* Project object */ = {
+		7C4E83FC2CD7BAC20049F373 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1600;
-				LastUpgradeCheck = 1600;
+				LastSwiftUpdateCheck = 1610;
+				LastUpgradeCheck = 1610;
 				TargetAttributes = {
-					7C5058152CCD42B90016F84B = {
-						CreatedOnToolsVersion = 16.0;
+					7C4E84032CD7BAC20049F373 = {
+						CreatedOnToolsVersion = 16.1;
 					};
-					7C5058282CCD42BA0016F84B = {
-						CreatedOnToolsVersion = 16.0;
-						TestTargetID = 7C5058152CCD42B90016F84B;
+					7C4E84162CD7BAC30049F373 = {
+						CreatedOnToolsVersion = 16.1;
+						TestTargetID = 7C4E84032CD7BAC20049F373;
 					};
-					7C5058322CCD42BA0016F84B = {
-						CreatedOnToolsVersion = 16.0;
-						TestTargetID = 7C5058152CCD42B90016F84B;
+					7C4E84202CD7BAC30049F373 = {
+						CreatedOnToolsVersion = 16.1;
+						TestTargetID = 7C4E84032CD7BAC20049F373;
 					};
 				};
 			};
-			buildConfigurationList = 7C5058112CCD42B90016F84B /* Build configuration list for PBXProject "TryTodoApp" */;
+			buildConfigurationList = 7C4E83FF2CD7BAC20049F373 /* Build configuration list for PBXProject "taskonizer" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = 7C50580D2CCD42B90016F84B;
+			mainGroup = 7C4E83FB2CD7BAC20049F373;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 7C5058172CCD42B90016F84B /* Products */;
+			productRefGroup = 7C4E84052CD7BAC20049F373 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				7C5058152CCD42B90016F84B /* TryTodoApp */,
-				7C5058282CCD42BA0016F84B /* TryTodoAppTests */,
-				7C5058322CCD42BA0016F84B /* TryTodoAppUITests */,
+				7C4E84032CD7BAC20049F373 /* taskonizer */,
+				7C4E84162CD7BAC30049F373 /* taskonizerTests */,
+				7C4E84202CD7BAC30049F373 /* taskonizerUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		7C5058142CCD42B90016F84B /* Resources */ = {
+		7C4E84022CD7BAC20049F373 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7C5058272CCD42BA0016F84B /* Resources */ = {
+		7C4E84152CD7BAC30049F373 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7C5058312CCD42BA0016F84B /* Resources */ = {
+		7C4E841F2CD7BAC30049F373 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -232,21 +232,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		7C5058122CCD42B90016F84B /* Sources */ = {
+		7C4E84002CD7BAC20049F373 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7C5058252CCD42BA0016F84B /* Sources */ = {
+		7C4E84132CD7BAC30049F373 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7C50582F2CCD42BA0016F84B /* Sources */ = {
+		7C4E841D2CD7BAC30049F373 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -256,20 +256,20 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		7C50582B2CCD42BA0016F84B /* PBXTargetDependency */ = {
+		7C4E84192CD7BAC30049F373 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 7C5058152CCD42B90016F84B /* TryTodoApp */;
-			targetProxy = 7C50582A2CCD42BA0016F84B /* PBXContainerItemProxy */;
+			target = 7C4E84032CD7BAC20049F373 /* taskonizer */;
+			targetProxy = 7C4E84182CD7BAC30049F373 /* PBXContainerItemProxy */;
 		};
-		7C5058352CCD42BA0016F84B /* PBXTargetDependency */ = {
+		7C4E84232CD7BAC30049F373 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 7C5058152CCD42B90016F84B /* TryTodoApp */;
-			targetProxy = 7C5058342CCD42BA0016F84B /* PBXContainerItemProxy */;
+			target = 7C4E84032CD7BAC20049F373 /* taskonizer */;
+			targetProxy = 7C4E84222CD7BAC30049F373 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		7C50583B2CCD42BA0016F84B /* Debug */ = {
+		7C4E84292CD7BAC30049F373 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -330,7 +330,7 @@
 			};
 			name = Debug;
 		};
-		7C50583C2CCD42BA0016F84B /* Release */ = {
+		7C4E842A2CD7BAC30049F373 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -383,15 +383,15 @@
 			};
 			name = Release;
 		};
-		7C50583E2CCD42BA0016F84B /* Debug */ = {
+		7C4E842C2CD7BAC30049F373 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = TryTodoApp/TryTodoApp.entitlements;
+				CODE_SIGN_ENTITLEMENTS = taskonizer/taskonizer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"TryTodoApp/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"taskonizer/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -404,31 +404,31 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = basklab.TryTodoApp;
+				PRODUCT_BUNDLE_IDENTIFIER = basklab.taskonizer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
-				XROS_DEPLOYMENT_TARGET = 2.0;
+				XROS_DEPLOYMENT_TARGET = 2.1;
 			};
 			name = Debug;
 		};
-		7C50583F2CCD42BA0016F84B /* Release */ = {
+		7C4E842D2CD7BAC30049F373 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = TryTodoApp/TryTodoApp.entitlements;
+				CODE_SIGN_ENTITLEMENTS = taskonizer/taskonizer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"TryTodoApp/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"taskonizer/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -441,148 +441,148 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = basklab.TryTodoApp;
+				PRODUCT_BUNDLE_IDENTIFIER = basklab.taskonizer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
-				XROS_DEPLOYMENT_TARGET = 2.0;
+				XROS_DEPLOYMENT_TARGET = 2.1;
 			};
 			name = Release;
 		};
-		7C5058412CCD42BA0016F84B /* Debug */ = {
+		7C4E842F2CD7BAC30049F373 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = basklab.TryTodoAppTests;
+				PRODUCT_BUNDLE_IDENTIFIER = basklab.taskonizerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TryTodoApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TryTodoApp";
-				XROS_DEPLOYMENT_TARGET = 2.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/taskonizer.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/taskonizer";
+				XROS_DEPLOYMENT_TARGET = 2.1;
 			};
 			name = Debug;
 		};
-		7C5058422CCD42BA0016F84B /* Release */ = {
+		7C4E84302CD7BAC30049F373 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = basklab.TryTodoAppTests;
+				PRODUCT_BUNDLE_IDENTIFIER = basklab.taskonizerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TryTodoApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TryTodoApp";
-				XROS_DEPLOYMENT_TARGET = 2.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/taskonizer.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/taskonizer";
+				XROS_DEPLOYMENT_TARGET = 2.1;
 			};
 			name = Release;
 		};
-		7C5058442CCD42BA0016F84B /* Debug */ = {
+		7C4E84322CD7BAC30049F373 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = basklab.TryTodoAppUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = basklab.taskonizerUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
-				TEST_TARGET_NAME = TryTodoApp;
-				XROS_DEPLOYMENT_TARGET = 2.0;
+				TEST_TARGET_NAME = taskonizer;
+				XROS_DEPLOYMENT_TARGET = 2.1;
 			};
 			name = Debug;
 		};
-		7C5058452CCD42BA0016F84B /* Release */ = {
+		7C4E84332CD7BAC30049F373 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = basklab.TryTodoAppUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = basklab.taskonizerUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
-				TEST_TARGET_NAME = TryTodoApp;
-				XROS_DEPLOYMENT_TARGET = 2.0;
+				TEST_TARGET_NAME = taskonizer;
+				XROS_DEPLOYMENT_TARGET = 2.1;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		7C5058112CCD42B90016F84B /* Build configuration list for PBXProject "TryTodoApp" */ = {
+		7C4E83FF2CD7BAC20049F373 /* Build configuration list for PBXProject "taskonizer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7C50583B2CCD42BA0016F84B /* Debug */,
-				7C50583C2CCD42BA0016F84B /* Release */,
+				7C4E84292CD7BAC30049F373 /* Debug */,
+				7C4E842A2CD7BAC30049F373 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7C50583D2CCD42BA0016F84B /* Build configuration list for PBXNativeTarget "TryTodoApp" */ = {
+		7C4E842B2CD7BAC30049F373 /* Build configuration list for PBXNativeTarget "taskonizer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7C50583E2CCD42BA0016F84B /* Debug */,
-				7C50583F2CCD42BA0016F84B /* Release */,
+				7C4E842C2CD7BAC30049F373 /* Debug */,
+				7C4E842D2CD7BAC30049F373 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7C5058402CCD42BA0016F84B /* Build configuration list for PBXNativeTarget "TryTodoAppTests" */ = {
+		7C4E842E2CD7BAC30049F373 /* Build configuration list for PBXNativeTarget "taskonizerTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7C5058412CCD42BA0016F84B /* Debug */,
-				7C5058422CCD42BA0016F84B /* Release */,
+				7C4E842F2CD7BAC30049F373 /* Debug */,
+				7C4E84302CD7BAC30049F373 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7C5058432CCD42BA0016F84B /* Build configuration list for PBXNativeTarget "TryTodoAppUITests" */ = {
+		7C4E84312CD7BAC30049F373 /* Build configuration list for PBXNativeTarget "taskonizerUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7C5058442CCD42BA0016F84B /* Debug */,
-				7C5058452CCD42BA0016F84B /* Release */,
+				7C4E84322CD7BAC30049F373 /* Debug */,
+				7C4E84332CD7BAC30049F373 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 7C50580E2CCD42B90016F84B /* Project object */;
+	rootObject = 7C4E83FC2CD7BAC20049F373 /* Project object */;
 }

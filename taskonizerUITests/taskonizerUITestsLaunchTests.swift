@@ -1,13 +1,13 @@
 //
-//  TryTodoAppUITestsLaunchTests.swift
-//  TryTodoAppUITests
+//  taskonizerUITestsLaunchTests.swift
+//  taskonizerUITests
 //
-//  Created by Oleg Bask on 10/26/24.
+//  Created by Oleg B on 03/11/2024.
 //
 
 import XCTest
 
-final class TryTodoAppUITestsLaunchTests: XCTestCase {
+final class taskonizerUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true
